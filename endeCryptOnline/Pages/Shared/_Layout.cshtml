@@ -1,0 +1,244 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - endeCryptOnline</title>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/endeCryptOnline.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/bootstrap.min.css" asp-append-version="true" />
+    <script src="~/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body>
+       <div id="passwordWindow">
+            <div class="" id="" >
+                <div id="closePasswordWindowBtn" onclick="closePasswordWindowClick()"></div>
+                <label for="passwordInput" >Enter password</label>
+                <div class="input-group  customInputGroup" >
+                    <input type="password" autocomplete="off" class="form-control" required placeholder="Password" id="passwordInput" onkeyup="passInputKeyUp()" 
+                        style="border-radius:8px 0 0 8px ;text-align:center"/>
+                    <div class="input-group-prepend">
+                        <div class="input-group-text " style="border-radius:0 8px 8px 0 ; background-color:#74e8c1; ">
+                            <a onclick="passInputOkClick()"> ✔ </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+
+    <header>
+
+
+<nav class="navbar navbar-expand-lg navbar-light customNavbar">
+  <div class="container-fluid">
+
+    <!-- <a class="navbar-brand" asp-page="/Index" >>endecrypt</a> -->
+    
+    <div  style=" display: inline-flex">
+        <div class="tableButtonCell">
+            <a  class="btn  tableButtonEncrypt" title="Encrypt"
+            onclick="encrypt()"></a>
+        </div>
+
+        <div class="tableButtonCell">
+            <a  class="btn  tableButtonDecrypt" title="Decrypt"
+                onclick="decrypt()"></a>
+        </div>
+
+        <div class="d-flex"  style="align-items: center; margin-left:1.5em">
+            <div class="spinner-border " id="customSpinner" role="status"></div>
+            <span id="processingMsg"></span>
+        </div>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarText"  onclick="collpasedNavbarClick(this)">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+
+        </li>
+        <li class="nav-item">
+
+        </li>
+      </ul>
+
+          <div class="d-flex justify-content-center collpasedNavbarIcons" style="align-items: center;">
+
+
+            <div id="filesTextSelectorContainer" >
+                <div id="filesTextSelectorBackground"></div>
+                <img style="left:12px ; "  src="~/img/file-earmark.svg"  onclick="selectFilesArea(this)"/>
+                <img style="right:12px; " src="~/img/text-left.svg"  onclick="selectTextArea(this)"/>
+            </div>
+
+            <span id="displaySelectedTextFiles">Files</span>
+
+
+            <div class="imageUpload row d-flex justify-content-center text-center">
+                <label for="fileUpload">
+                    <div class="tableButtonCell">
+                        <a id="" class="btn tableButtonAddImage"
+                                title="Dodaj plik" ></a>
+                    </div>
+                </label>
+                <input id="fileUpload" type="file"  onchange="onUserDataImageSelected(event) , addImage2formData()" />
+            </div>
+     
+            <div class="tableButtonCell">
+                <input type="submit" id="passWindowIcon"  class="btn  tableButtonAddPassword"
+                value="" title="Wprowadź hasło"  onclick="displayPasswindow()" />
+            </div>
+
+
+            <div class="tableButtonCell">
+                <input type="submit"  class="btn  tableButtonRemoveFiles"
+                value="" title="Usuń pliki" onclick="removeAllFiles()" />
+            </div>
+
+
+            <div class="tableButtonCell">
+                <input type="submit"  class="btn  downloadFiles"
+                value="" title="Ściągnij całość" onclick="saveAsZip()" />
+            </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+ 
+</nav>
+
+
+
+        <!--
+
+
+        <nav class=" navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="nabBarContainer">
+               
+                <a class="navbar-brand" asp-area="" asp-page="/Index" style="font-family:monospace; font-size:1.4em">
+                    <span style="color:#30cf9c; font-weight: 900">></span>    
+                    endeCrypt
+                </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              
+                <div class="" >
+                    <ul class="navbarUl"  style=" ">
+                       
+                        <li class="" >
+                             <div class="tableButtonsContainer ">
+                                <div class="tableButtonCell">
+                                    <input type="submit"  class="btn  downloadFiles"
+                                    value="" title="Ściągnij całość" onclick="saveAsZip()" />
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="" >
+                             <div class="tableButtonsContainer ">
+                                <div class="tableButtonCell">
+                                    <input type="submit"  class="btn  tableButtonRemoveFiles"
+                                    value="" title="Usuń pliki" onclick="removeAllFiles()" />
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="" >
+                             <div class="tableButtonsContainer ">
+                                <div class="tableButtonCell">
+                                    <input type="submit" id="passWindowIcon"  class="btn  tableButtonAddPassword"
+                                    value="" title="Wprowadź hasło"  onclick="displayPasswindow()" />
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="" >
+                            <div class="tableButtonsContainer " >
+                                <div class="imageUpload row d-flex justify-content-center text-center">
+                                    <label for="fileUpload">
+                                        <div class="tableButtonCell">
+                                            <a id="" class="btn tableButtonAddImage"
+                                                    title="Dodaj plik" ></a>
+                                        </div>
+                                    </label>
+                                    <input id="fileUpload" type="file"  onchange="onUserDataImageSelected(event) , addImage2formData()" />
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class=" customSpacing" >
+                           <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        </li>
+                        
+
+
+                        <li class="" >
+                            <div class="tableButtonsContainer ">
+                                <div class="tableButtonCell">
+                                    <a  class="btn  tableButtonDecrypt" title="Decrypt"
+                                     onclick="decrypt()"></a>
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <li class=" " >
+                           <div class="tableButtonsContainer ">
+                                <div class="tableButtonCell">
+                                    <a  class="btn  tableButtonEncrypt" title="Encrypt"
+                                    onclick="encrypt()"></a>
+                                </div>
+                            </div>
+                        </li>
+
+                     
+                         
+                     
+
+                    </ul>
+                </div>
+
+
+
+                </div>
+            </div>
+        </nav>
+
+        -->
+
+    </header>
+
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <!--
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - endeCryptOnline - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+    -->
+
+    <!--<script src="~/lib/jquery/dist/jquery.min.js"></script>-->
+    <!--<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+   
+</body>
+</html>

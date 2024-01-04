@@ -1,0 +1,55 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<!-- For Ajax-->
+@Html.AntiForgeryToken()
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+       
+   
+    <body class="" >
+        <div id="blurLayer"></div>
+        <ul  id="startInfoDiv">
+            <li>Total size of uploaded files should be under 50Mb.</li>
+            <li>To download processed file click the specific icon. </li>
+            <li>To download all files as zip archive, click 
+                <img  src="~/img/cloud-download2.svg"/></li>
+            <li>Download links are valid for 5 minutes.</li>
+            <li>Slide button lets you choose bewtween encrypting text and files.</li>
+            <img id="startInfoClose" onclick="closeDiv(this)" src="~/img/x-circle-fill.svg" >
+        </ul>
+    
+        <div>
+            <div id="dropZoneContainer">
+                <div id="dropZone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);"></div>
+                <div class="displayUploadedImgCaseTableContainer " ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);">
+                    <div id="displayUploadedImg"></div>
+                </div>
+                <textarea id="InfoZone"></textarea>
+            </div>
+        </div>
+        <footer>
+            <label id="displayFilesesProcessed">Files processed: @Model.DisplaySummaryFiles</label>
+            <label>&nbsp; || &nbsp; </label>
+            <label id="displayBytesProcessed">Bytes processed: @Model.DisplaySummaryBytes</label>
+        </footer>
+
+        <div id="progressBarContainer">
+            <div>
+                <div onclick="interruptAjaxCall()" id="interruptAjaxUploadButton"></div>
+                <div id="progressProcentage"></div>
+                <div id="progressBar"></div>
+                <div id="progressInfo"></div>
+            </div>
+        </div>
+        <a href="https://ex3.pl" id="logoContainer"></a>
+   
+    </body>
+
+
+   
